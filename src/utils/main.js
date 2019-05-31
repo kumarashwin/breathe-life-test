@@ -73,7 +73,7 @@ const calculatePremiumMultiplier = person => {
 
 const calculatePremium = person => ({
   ...person,
-  premium: (person.multiplier * (person.coveragePrice * (person.policyrequested / 1000))).toFixed(2)
+  premium: Number((person.multiplier * (person.coveragePrice * (person.policyrequested / 1000))).toFixed(2))
 });
 
 const reduceToOutput = person => ({
@@ -93,3 +93,42 @@ const result = data
   .map(reduceToOutput);
 
 fs.writeFileSync(path.resolve(__dirname, '../../public/output.csv'), Papa.unparse(result));
+
+// --- Tests (Results calculated manually for this prototype) ---
+
+// Ali,33,M,NS,ali2351@gmail.com,182,76,[],10,H2V 6F3,350000.00
+const ali = [data[5]].map(processNumbers)
+  .map(calculateBmi)
+  .map(calculateDebitPoints)
+  .map(calculateCoveragePrice)
+  .map(calculatePremiumMultiplier)
+  .map(calculatePremium)[0];
+
+const aliExpectedBmi = 22.94;
+const aliExpectedCoveragePrice = 0.10;
+const aliExpectedMultiplier = 1;
+const aliExpectedPremium = 35;
+
+if(ali.bmi !== aliExpectedBmi) throw new Error('BMI');
+if(ali.coveragePrice !== aliExpectedCoveragePrice) throw new Error('Coverage Price');
+if(ali.multiplier !== aliExpectedMultiplier) throw new Error('Multiplier');
+if(ali.premium !== aliExpectedPremium) throw new Error('Premium');
+
+// Jean,45,M,S,jean@videotron.ca,179,90,"[ANXIETY,HEART]",2,H1S 3Y3,200000.00
+const jean = [data[0]].map(processNumbers)
+  .map(calculateBmi)
+  .map(calculateDebitPoints)
+  .map(calculateCoveragePrice)
+  .map(calculatePremiumMultiplier)
+  .map(calculatePremium)[0];
+
+const jeanExpectedBmi = 28.09;
+const jeanExpectedCoveragePrice = 0.55;
+const jeanExpectedMultiplier = 1.15;
+const jeanExpectedPremium = 126.5;
+
+if(jean.bmi !== jeanExpectedBmi) throw new Error('BMI');
+if(jean.coveragePrice !== jeanExpectedCoveragePrice) throw new Error('Coverage Price');
+if(jean.multiplier !== jeanExpectedMultiplier) throw new Error('Multiplier');
+if(jean.premium !== jeanExpectedPremium) throw new Error('Premium');
+
