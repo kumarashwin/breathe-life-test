@@ -76,12 +76,20 @@ const calculatePremium = person => ({
   premium: (person.multiplier * (person.coveragePrice * (person.policyrequested / 1000))).toFixed(2)
 });
 
-const test = data
+const reduceToOutput = person => ({
+  name: person.name,
+  bmi: person.bmi,
+  score: person.debit,
+  premium: person.premium
+})
+
+const result = data
   .map(processNumbers)
   .map(calculateBmi)
   .map(calculateDebitPoints)
   .map(calculateCoveragePrice)
   .map(calculatePremiumMultiplier)
-  .map(calculatePremium);
+  .map(calculatePremium)
+  .map(reduceToOutput);
 
-console.log(test[0]);
+fs.writeFileSync(path.resolve(__dirname, '../../public/output.csv'), Papa.unparse(result));
