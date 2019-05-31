@@ -1,0 +1,8 @@
+name,age,gender,smoker,email,height,weight,health,alcohol,postalcode,policyrequested
+jean,45,M,S,jean@videotron.ca,179,90,"[ANXIETY,HEART]",2,H1S 3Y3,200000.00
+sylvie,33,F,NS,sylvie@textis.com,155,76,[SURGERY],3,H4S 2D3,150000.00
+robert,44,M,NS,robbie@outlook.com,175,60,[HEART],25,H1S 4F2,345000.00
+nancy,49,F,NS,nancy@varneno.com,161,65,[],5,W3C 1B3,540000.00
+henry,21,M,S,henry@partyhouse.com,184,52,[],25,H4L 5Y2,125000.00
+ali,33,M,NS,ali2351@gmail.com,182,76,[],10,H2V 6F3,350000.00
+herve,41,M,S,herve@yahoo.com,179,84,[],12,H5S 8N8,210000.00
